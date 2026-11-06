@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   ArrowLeft,
   Check,
@@ -10,9 +10,9 @@ import {
   Palette,
   MapPin,
   Compass,
-} from 'lucide-react';
-import CartTotalCard from '../components/CartTotalCard';
-import { enquiriesAPI, packagesAPI } from '../services/api';
+} from "lucide-react";
+import CartTotalCard from "../components/CartTotalCard";
+import { enquiriesAPI, packagesAPI } from "../services/api";
 
 const QuoteReviseView = ({
   enquiry,
@@ -29,19 +29,31 @@ const QuoteReviseView = ({
 
   // Floor room generator for accurate floor count and rooms
   const generateFloorsList = (floorType) => {
-    let names = ['Ground Floor'];
-    if (floorType === 'Ground +1 Floor') names = ['Ground Floor', 'First Floor'];
-    if (floorType === 'Ground +2 Floor') names = ['Ground Floor', 'First Floor', 'Second Floor'];
-    if (floorType === 'Ground +3 Floor') names = ['Ground Floor', 'First Floor', 'Second Floor', 'Third Floor'];
-    if (floorType === 'Stilt +1 Floor') names = ['Stilt Floor', 'First Floor'];
-    if (floorType === 'Stilt +2 Floor') names = ['Stilt Floor', 'First Floor', 'Second Floor'];
-    if (floorType === 'Stilt +3 Floor') names = ['Stilt Floor', 'First Floor', 'Second Floor', 'Third Floor'];
-    if (floorType === 'Stilt +4 Floor') names = ['Stilt Floor', 'First Floor', 'Second Floor', 'Third Floor', 'Fourth Floor'];
+    let names = ["Ground Floor"];
+    if (floorType === "Ground +1 Floor")
+      names = ["Ground Floor", "First Floor"];
+    if (floorType === "Ground +2 Floor")
+      names = ["Ground Floor", "First Floor", "Second Floor"];
+    if (floorType === "Ground +3 Floor")
+      names = ["Ground Floor", "First Floor", "Second Floor", "Third Floor"];
+    if (floorType === "Stilt +1 Floor") names = ["Stilt Floor", "First Floor"];
+    if (floorType === "Stilt +2 Floor")
+      names = ["Stilt Floor", "First Floor", "Second Floor"];
+    if (floorType === "Stilt +3 Floor")
+      names = ["Stilt Floor", "First Floor", "Second Floor", "Third Floor"];
+    if (floorType === "Stilt +4 Floor")
+      names = [
+        "Stilt Floor",
+        "First Floor",
+        "Second Floor",
+        "Third Floor",
+        "Fourth Floor",
+      ];
 
     const defaultRoomsTemplate = [
       {
         areaName: "Parking",
-        selected: true,
+        selected: false,
         nos: 1,
         minArea: 40,
         requiredArea: 40,
@@ -49,7 +61,7 @@ const QuoteReviseView = ({
       },
       {
         areaName: "Sitout",
-        selected: true,
+        selected: false,
         nos: 1,
         minArea: 25,
         requiredArea: 25,
@@ -57,7 +69,7 @@ const QuoteReviseView = ({
       },
       {
         areaName: "Foyer",
-        selected: true,
+        selected: false,
         nos: 1,
         minArea: 25,
         requiredArea: 25,
@@ -65,7 +77,7 @@ const QuoteReviseView = ({
       },
       {
         areaName: "Living Hall",
-        selected: true,
+        selected: false,
         nos: 1,
         minArea: 80,
         requiredArea: 80,
@@ -73,7 +85,7 @@ const QuoteReviseView = ({
       },
       {
         areaName: "Dining Hall",
-        selected: true,
+        selected: false,
         nos: 1,
         minArea: 80,
         requiredArea: 80,
@@ -81,7 +93,7 @@ const QuoteReviseView = ({
       },
       {
         areaName: "Kitchen",
-        selected: true,
+        selected: false,
         nos: 1,
         minArea: 60,
         requiredArea: 60,
@@ -89,7 +101,7 @@ const QuoteReviseView = ({
       },
       {
         areaName: "Kitchen Store",
-        selected: true,
+        selected: false,
         nos: 1,
         minArea: 25,
         requiredArea: 25,
@@ -97,7 +109,7 @@ const QuoteReviseView = ({
       },
       {
         areaName: "Utility",
-        selected: true,
+        selected: false,
         nos: 1,
         minArea: 25,
         requiredArea: 25,
@@ -105,7 +117,7 @@ const QuoteReviseView = ({
       },
       {
         areaName: "Pooja",
-        selected: true,
+        selected: false,
         nos: 1,
         minArea: 20,
         requiredArea: 20,
@@ -113,7 +125,7 @@ const QuoteReviseView = ({
       },
       {
         areaName: "Courtyard",
-        selected: true,
+        selected: false,
         nos: 1,
         minArea: 30,
         requiredArea: 30,
@@ -121,7 +133,7 @@ const QuoteReviseView = ({
       },
       {
         areaName: "Master Bedroom",
-        selected: true,
+        selected: false,
         nos: 1,
         minArea: 160,
         requiredArea: 160,
@@ -129,7 +141,7 @@ const QuoteReviseView = ({
       },
       {
         areaName: "Guest Bedroom",
-        selected: true,
+        selected: false,
         nos: 1,
         minArea: 70,
         requiredArea: 70,
@@ -137,7 +149,7 @@ const QuoteReviseView = ({
       },
       {
         areaName: "Family Room",
-        selected: true,
+        selected: false,
         nos: 1,
         minArea: 100,
         requiredArea: 100,
@@ -145,7 +157,7 @@ const QuoteReviseView = ({
       },
       {
         areaName: "Gym",
-        selected: true,
+        selected: false,
         nos: 1,
         minArea: 100,
         requiredArea: 100,
@@ -153,7 +165,7 @@ const QuoteReviseView = ({
       },
       {
         areaName: "Yoga Room",
-        selected: true,
+        selected: false,
         nos: 1,
         minArea: 100,
         requiredArea: 100,
@@ -161,7 +173,7 @@ const QuoteReviseView = ({
       },
       {
         areaName: "Store Room",
-        selected: true,
+        selected: false,
         nos: 1,
         minArea: 40,
         requiredArea: 40,
@@ -169,7 +181,7 @@ const QuoteReviseView = ({
       },
       {
         areaName: "Home Theatre",
-        selected: true,
+        selected: false,
         nos: 1,
         minArea: 110,
         requiredArea: 110,
@@ -177,7 +189,7 @@ const QuoteReviseView = ({
       },
       {
         areaName: "Staircase",
-        selected: true,
+        selected: false,
         nos: 1,
         minArea: 80,
         requiredArea: 80,
@@ -186,7 +198,7 @@ const QuoteReviseView = ({
       },
       {
         areaName: "Lift",
-        selected: true,
+        selected: false,
         nos: 1,
         minArea: 25,
         requiredArea: 25,
@@ -216,7 +228,7 @@ const QuoteReviseView = ({
           setActivePackage(res.data.data);
         }
       } catch (err) {
-        console.error('Error fetching package slabs:', err);
+        console.error("Error fetching package slabs:", err);
       }
     };
     fetchPackage();
@@ -235,23 +247,27 @@ const QuoteReviseView = ({
       }
       if (!copy.elevationDetails) {
         copy.elevationDetails = {
-          elevationSqft: copy.pricing?.elevationSqft || copy.siteDetails?.builtUpArea || 0,
-          note: '',
+          elevationSqft:
+            copy.pricing?.elevationSqft || copy.siteDetails?.builtUpArea || 0,
+          note: "",
         };
       }
       if (!copy.interiorDetails) {
         copy.interiorDetails = {
           interiorSqft: copy.pricing?.interiorSqft || 0,
-          note: '',
+          note: "",
         };
       }
       if (!copy.address) {
-        copy.address = '';
+        copy.address = "";
       }
 
       // Ensure floors exist
-      const chosenFloor = copy.spatialRequirements?.chosenFloor || 'Ground';
-      if (!copy.spatialRequirements?.floors || copy.spatialRequirements.floors.length === 0) {
+      const chosenFloor = copy.spatialRequirements?.chosenFloor || "Ground";
+      if (
+        !copy.spatialRequirements?.floors ||
+        copy.spatialRequirements.floors.length === 0
+      ) {
         copy.spatialRequirements = {
           ...copy.spatialRequirements,
           chosenFloor,
@@ -267,7 +283,11 @@ const QuoteReviseView = ({
   useEffect(() => {
     if (!formData || !activePackage) return;
 
-    const services = formData.services || { plan: false, elevation: true, interior: false };
+    const services = formData.services || {
+      plan: false,
+      elevation: true,
+      interior: false,
+    };
 
     const findRate = (slabs, sqft, fallback = 20) => {
       if (!slabs || slabs.length === 0) return fallback;
@@ -286,13 +306,25 @@ const QuoteReviseView = ({
 
     // 2. Elevation
     const elevationSqft = Number(formData.elevationDetails?.elevationSqft || 0);
-    const elevationRate = findRate(activePackage.elevationPriceSlabs, elevationSqft, 22);
-    const elevationSubtotal = services.elevation ? Math.round(elevationSqft * elevationRate) : 0;
+    const elevationRate = findRate(
+      activePackage.elevationPriceSlabs,
+      elevationSqft,
+      22,
+    );
+    const elevationSubtotal = services.elevation
+      ? Math.round(elevationSqft * elevationRate)
+      : 0;
 
     // 3. Interior
     const interiorSqft = Number(formData.interiorDetails?.interiorSqft || 0);
-    const interiorRate = findRate(activePackage.interiorPriceSlabs, interiorSqft, 35);
-    const interiorSubtotal = services.interior ? Math.round(interiorSqft * interiorRate) : 0;
+    const interiorRate = findRate(
+      activePackage.interiorPriceSlabs,
+      interiorSqft,
+      35,
+    );
+    const interiorSubtotal = services.interior
+      ? Math.round(interiorSqft * interiorRate)
+      : 0;
 
     // Add-ons & surcharges removed as instructed
     const otsFee = 0;
@@ -320,15 +352,15 @@ const QuoteReviseView = ({
         whiteLabelFees: whiteLabel,
         subtotal,
         grandTotal,
-        paymentStatus: prev.pricing?.paymentStatus || 'Unpaid',
+        paymentStatus: prev.pricing?.paymentStatus || "Unpaid",
         advanceAmount:
           prev.pricing?.advanceAmount !== undefined
             ? prev.pricing.advanceAmount
-            : prev.pricing?.paymentStatus === 'Fully Paid'
-            ? grandTotal
-            : prev.pricing?.paymentStatus === 'Advance Paid'
-            ? advance
-            : 0,
+            : prev.pricing?.paymentStatus === "Fully Paid"
+              ? grandTotal
+              : prev.pricing?.paymentStatus === "Advance Paid"
+                ? advance
+                : 0,
         balanceAmount:
           prev.pricing?.balanceAmount !== undefined
             ? prev.pricing.balanceAmount
@@ -346,13 +378,21 @@ const QuoteReviseView = ({
   ]);
 
   if (!formData) {
-    return <div className="p-8 text-center text-slate-500">Loading Enquiry Form...</div>;
+    return (
+      <div className="p-8 text-center text-slate-500">
+        Loading Enquiry Form...
+      </div>
+    );
   }
 
-  const services = formData.services || { plan: true, elevation: true, interior: false };
+  const services = formData.services || {
+    plan: true,
+    elevation: true,
+    interior: false,
+  };
   const site = formData.siteDetails || {};
   const spatial = formData.spatialRequirements || {};
-  const currentFloorType = spatial.chosenFloor || 'Ground';
+  const currentFloorType = spatial.chosenFloor || "Ground";
 
   // Calculate sum of room square feet across all visible floors
   const computeTotalPlannedRoomArea = () => {
@@ -360,7 +400,9 @@ const QuoteReviseView = ({
     (spatial.floors || []).forEach((fl) => {
       (fl.rooms || []).forEach((rm) => {
         if (rm.selected) {
-          sum += Number(rm.total || (rm.nos || 1) * (rm.requiredArea || rm.minArea || 0));
+          sum += Number(
+            rm.total || (rm.nos || 1) * (rm.requiredArea || rm.minArea || 0),
+          );
         }
       });
     });
@@ -399,9 +441,10 @@ const QuoteReviseView = ({
       const rooms = [...floor.rooms];
       const room = { ...rooms[roomIndex], [field]: value };
 
-      if (field === 'requiredArea' || field === 'nos') {
-        const nos = field === 'nos' ? Number(value) : room.nos || 1;
-        const req = field === 'requiredArea' ? Number(value) : room.requiredArea || 0;
+      if (field === "requiredArea" || field === "nos") {
+        const nos = field === "nos" ? Number(value) : room.nos || 1;
+        const req =
+          field === "requiredArea" ? Number(value) : room.requiredArea || 0;
         room.total = nos * req;
       }
 
@@ -439,7 +482,7 @@ const QuoteReviseView = ({
           minArea: req,
           requiredArea: req,
           total: req,
-          hasOts: name.toLowerCase().includes('staircase'),
+          hasOts: name.toLowerCase().includes("staircase"),
         },
       ];
       floor.rooms = rooms;
@@ -456,28 +499,32 @@ const QuoteReviseView = ({
 
     setCustomRoomInputs((prev) => ({
       ...prev,
-      [floorIndex]: { name: '', area: '' },
+      [floorIndex]: { name: "", area: "" },
     }));
   };
 
   // Save Enquiry with strict frontend validation
   const handleSave = async () => {
     if (!formData?.clientName?.trim()) {
-      alert('Please enter Customer Name');
+      alert("Please enter Customer Name");
       return;
     }
     if (!formData?.mobileNo?.trim()) {
-      alert('Please enter Mobile Number');
+      alert("Please enter Mobile Number");
       return;
     }
     if (!formData?.projectName?.trim()) {
-      alert('Please enter Project Name');
+      alert("Please enter Project Name");
       return;
     }
 
-    const services = formData.services || { plan: false, elevation: false, interior: false };
+    const services = formData.services || {
+      plan: false,
+      elevation: false,
+      interior: false,
+    };
     if (!services.plan && !services.elevation && !services.interior) {
-      alert('Please select at least one service: Plan, Elevation, or Interior');
+      alert("Please select at least one service: Plan, Elevation, or Interior");
       return;
     }
 
@@ -492,26 +539,26 @@ const QuoteReviseView = ({
         res = await enquiriesAPI.create(payload);
       }
       if (res.data?.success) {
-        alert('Enquiry & Quotation Saved Successfully!');
+        alert("Enquiry & Quotation Saved Successfully!");
         if (onSaveSuccess) onSaveSuccess(res.data.data);
       }
     } catch (err) {
       const msg = err.response?.data?.message || err.message;
-      alert('Failed to save enquiry: ' + msg);
+      alert("Failed to save enquiry: " + msg);
     } finally {
       setIsSaving(false);
     }
   };
 
   const floorButtons = [
-    'Ground',
-    'Ground +1 Floor',
-    'Ground +2 Floor',
-    'Ground +3 Floor',
-    'Stilt +1 Floor',
-    'Stilt +2 Floor',
-    'Stilt +3 Floor',
-    'Stilt +4 Floor',
+    "Ground",
+    "Ground +1 Floor",
+    "Ground +2 Floor",
+    "Ground +3 Floor",
+    "Stilt +1 Floor",
+    "Stilt +2 Floor",
+    "Stilt +3 Floor",
+    "Stilt +4 Floor",
   ];
 
   return (
@@ -531,12 +578,16 @@ const QuoteReviseView = ({
             <button
               type="button"
               onClick={async () => {
-                if (window.confirm(`Are you sure you want to delete enquiry #${formData.sno} for "${formData.projectName}"?`)) {
+                if (
+                  window.confirm(
+                    `Are you sure you want to delete enquiry #${formData.sno} for "${formData.projectName}"?`,
+                  )
+                ) {
                   try {
                     await enquiriesAPI.delete(formData._id);
                     onBack();
                   } catch (err) {
-                    alert('Error deleting: ' + err.message);
+                    alert("Error deleting: " + err.message);
                   }
                 }
               }}
@@ -548,10 +599,11 @@ const QuoteReviseView = ({
             </button>
           )}
           <span className="font-mono text-slate-500">
-            {formData.quoteNumber || (isNew ? 'NEW ENQUIRY' : `#${formData.sno}`)}
+            {formData.quoteNumber ||
+              (isNew ? "NEW ENQUIRY" : `#${formData.sno}`)}
           </span>
           <span className="px-2.5 py-0.5 rounded-full bg-black text-white font-bold text-[11px]">
-            {formData.quoteStatus || 'Draft'}
+            {formData.quoteStatus || "Draft"}
           </span>
         </div>
       </div>
@@ -559,10 +611,11 @@ const QuoteReviseView = ({
       {/* Main Page Title */}
       <div className="py-1">
         <h1 className="text-2xl font-black text-slate-900 tracking-tight">
-          {isNew ? 'Add Enquiry' : 'Edit Enquiry & Quotation'}
+          {isNew ? "Add Enquiry" : "Edit Enquiry & Quotation"}
         </h1>
         <p className="text-xs text-slate-500 mt-0.5">
-          Fill customer details, select required services (Planning, Elevation, Interior), and manage estimation
+          Fill customer details, select required services (Planning, Elevation,
+          Interior), and manage estimation
         </p>
       </div>
 
@@ -584,8 +637,10 @@ const QuoteReviseView = ({
                 <input
                   type="text"
                   required
-                  value={formData.clientName || ''}
-                  onChange={(e) => setFormData({ ...formData, clientName: e.target.value })}
+                  value={formData.clientName || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, clientName: e.target.value })
+                  }
                   placeholder="e.g. Venkat / sri.raam"
                   className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:outline-none focus:ring-1 focus:ring-black"
                 />
@@ -598,8 +653,10 @@ const QuoteReviseView = ({
                 <input
                   type="text"
                   required
-                  value={formData.mobileNo || ''}
-                  onChange={(e) => setFormData({ ...formData, mobileNo: e.target.value })}
+                  value={formData.mobileNo || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, mobileNo: e.target.value })
+                  }
                   placeholder="e.g. 9789951092"
                   className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl font-medium font-mono focus:outline-none focus:ring-1 focus:ring-black"
                 />
@@ -611,8 +668,10 @@ const QuoteReviseView = ({
                 </label>
                 <input
                   type="text"
-                  value={formData.address || ''}
-                  onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                  value={formData.address || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, address: e.target.value })
+                  }
                   placeholder="e.g. Plot No 14, Anna Nagar, Chennai"
                   className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:outline-none focus:ring-1 focus:ring-black"
                 />
@@ -620,23 +679,30 @@ const QuoteReviseView = ({
 
               <div>
                 <label className="block font-bold text-slate-800 mb-1">
-                  Email Address <span className="text-slate-400 font-normal">(Optional)</span>
+                  Email Address{" "}
+                  <span className="text-slate-400 font-normal">(Optional)</span>
                 </label>
                 <input
                   type="email"
-                  value={formData.email || ''}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  value={formData.email || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                   placeholder="e.g. client@gmail.com (optional)"
                   className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:outline-none focus:ring-1 focus:ring-black"
                 />
               </div>
 
               <div className="sm:col-span-2">
-                <label className="block font-bold text-slate-800 mb-1">Project Name</label>
+                <label className="block font-bold text-slate-800 mb-1">
+                  Project Name
+                </label>
                 <input
                   type="text"
-                  value={formData.projectName || ''}
-                  onChange={(e) => setFormData({ ...formData, projectName: e.target.value })}
+                  value={formData.projectName || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, projectName: e.target.value })
+                  }
                   placeholder="e.g. Venkat residence"
                   className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:outline-none focus:ring-1 focus:ring-black"
                 />
@@ -655,14 +721,14 @@ const QuoteReviseView = ({
               <label
                 className={`p-4 rounded-xl border-2 flex items-start space-x-3 cursor-pointer transition select-none ${
                   services.plan
-                    ? 'border-black bg-slate-950 text-white shadow-sm'
-                    : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700'
+                    ? "border-black bg-slate-950 text-white shadow-sm"
+                    : "border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700"
                 }`}
               >
                 <input
                   type="checkbox"
                   checked={services.plan}
-                  onChange={() => handleServiceToggle('plan')}
+                  onChange={() => handleServiceToggle("plan")}
                   className="w-4 h-4 mt-0.5 rounded accent-amber-400"
                 />
                 <div>
@@ -670,7 +736,9 @@ const QuoteReviseView = ({
                     <Layers className="w-3.5 h-3.5" />
                     <span>Planning (Plan)</span>
                   </div>
-                  <div className={`text-[10px] mt-0.5 ${services.plan ? 'text-slate-300' : 'text-slate-500'}`}>
+                  <div
+                    className={`text-[10px] mt-0.5 ${services.plan ? "text-slate-300" : "text-slate-500"}`}
+                  >
                     Site details, setbacks & multi-floor rooms
                   </div>
                 </div>
@@ -680,14 +748,14 @@ const QuoteReviseView = ({
               <label
                 className={`p-4 rounded-xl border-2 flex items-start space-x-3 cursor-pointer transition select-none ${
                   services.elevation
-                    ? 'border-black bg-slate-950 text-white shadow-sm'
-                    : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700'
+                    ? "border-black bg-slate-950 text-white shadow-sm"
+                    : "border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700"
                 }`}
               >
                 <input
                   type="checkbox"
                   checked={services.elevation}
-                  onChange={() => handleServiceToggle('elevation')}
+                  onChange={() => handleServiceToggle("elevation")}
                   className="w-4 h-4 mt-0.5 rounded accent-amber-400"
                 />
                 <div>
@@ -695,7 +763,9 @@ const QuoteReviseView = ({
                     <Building className="w-3.5 h-3.5" />
                     <span>Elevation</span>
                   </div>
-                  <div className={`text-[10px] mt-0.5 ${services.elevation ? 'text-slate-300' : 'text-slate-500'}`}>
+                  <div
+                    className={`text-[10px] mt-0.5 ${services.elevation ? "text-slate-300" : "text-slate-500"}`}
+                  >
                     Input square feet only
                   </div>
                 </div>
@@ -705,14 +775,14 @@ const QuoteReviseView = ({
               <label
                 className={`p-4 rounded-xl border-2 flex items-start space-x-3 cursor-pointer transition select-none ${
                   services.interior
-                    ? 'border-black bg-slate-950 text-white shadow-sm'
-                    : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700'
+                    ? "border-black bg-slate-950 text-white shadow-sm"
+                    : "border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700"
                 }`}
               >
                 <input
                   type="checkbox"
                   checked={services.interior}
-                  onChange={() => handleServiceToggle('interior')}
+                  onChange={() => handleServiceToggle("interior")}
                   className="w-4 h-4 mt-0.5 rounded accent-amber-400"
                 />
                 <div>
@@ -720,7 +790,9 @@ const QuoteReviseView = ({
                     <Palette className="w-3.5 h-3.5" />
                     <span>Interior</span>
                   </div>
-                  <div className={`text-[10px] mt-0.5 ${services.interior ? 'text-slate-300' : 'text-slate-500'}`}>
+                  <div
+                    className={`text-[10px] mt-0.5 ${services.interior ? "text-slate-300" : "text-slate-500"}`}
+                  >
                     Input square feet only
                   </div>
                 </div>
@@ -752,7 +824,15 @@ const QuoteReviseView = ({
                       ⚠️ Warning: Planned Room Area Exceeds Built-up Area!
                     </div>
                     <div className="text-[11px] text-amber-800 mt-0.5">
-                      Total room square footage (<strong>{totalRoomSqft} sq.ft</strong>) exceeds the designated built-up area (<strong>{builtUpLimit} sq.ft</strong>) by <strong className="text-red-700">+{areaDifference} sq.ft</strong>. Please adjust room requirements or increase designated built-up area.
+                      Total room square footage (
+                      <strong>{totalRoomSqft} sq.ft</strong>) exceeds the
+                      designated built-up area (
+                      <strong>{builtUpLimit} sq.ft</strong>) by{" "}
+                      <strong className="text-red-700">
+                        +{areaDifference} sq.ft
+                      </strong>
+                      . Please adjust room requirements or increase designated
+                      built-up area.
                     </div>
                   </div>
                 </div>
@@ -761,9 +841,19 @@ const QuoteReviseView = ({
               {/* Designated Plot & Built-up Area Side-by-Side */}
               <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-bold text-slate-800">1. Designated Project Areas</span>
+                  <span className="font-bold text-slate-800">
+                    1. Designated Project Areas
+                  </span>
                   <div className="font-mono text-[11px]">
-                    Rooms Sum: <strong className={isAreaExceeded ? 'text-red-600' : 'text-emerald-700'}>{totalRoomSqft} sq.ft</strong> / Built-up: <strong>{builtUpLimit} sq.ft</strong>
+                    Rooms Sum:{" "}
+                    <strong
+                      className={
+                        isAreaExceeded ? "text-red-600" : "text-emerald-700"
+                      }
+                    >
+                      {totalRoomSqft} sq.ft
+                    </strong>{" "}
+                    / Built-up: <strong>{builtUpLimit} sq.ft</strong>
                   </div>
                 </div>
 
@@ -776,11 +866,14 @@ const QuoteReviseView = ({
                       type="number"
                       min="0"
                       placeholder="0"
-                      value={site.area || ''}
+                      value={site.area || ""}
                       onChange={(e) =>
                         setFormData((prev) => ({
                           ...prev,
-                          siteDetails: { ...prev.siteDetails, area: Number(e.target.value) },
+                          siteDetails: {
+                            ...prev.siteDetails,
+                            area: Number(e.target.value),
+                          },
                         }))
                       }
                       className="w-full px-3 py-2 text-xs bg-white border border-slate-300 rounded-lg font-bold text-slate-900"
@@ -789,33 +882,44 @@ const QuoteReviseView = ({
 
                   <div>
                     <label className="block text-[11px] font-semibold text-slate-700 mb-1">
-                      Designated Built-up Area (Sq.Ft) <span className="text-amber-600 font-bold">*</span>
+                      Designated Built-up Area (Sq.Ft){" "}
+                      <span className="text-amber-600 font-bold">*</span>
                     </label>
                     <input
                       type="number"
                       min="0"
                       placeholder="0"
-                      value={site.builtUpArea || ''}
+                      value={site.builtUpArea || ""}
                       onChange={(e) =>
                         setFormData((prev) => ({
                           ...prev,
-                          siteDetails: { ...prev.siteDetails, builtUpArea: Number(e.target.value) },
+                          siteDetails: {
+                            ...prev.siteDetails,
+                            builtUpArea: Number(e.target.value),
+                          },
                         }))
                       }
                       className={`w-full px-3 py-2 text-xs rounded-lg font-bold text-slate-900 border ${
-                        isAreaExceeded ? 'bg-amber-50 border-amber-400' : 'bg-white border-slate-300'
+                        isAreaExceeded
+                          ? "bg-amber-50 border-amber-400"
+                          : "bg-white border-slate-300"
                       }`}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-semibold text-slate-700 mb-1">Orientation</label>
+                    <label className="block text-[11px] font-semibold text-slate-700 mb-1">
+                      Orientation
+                    </label>
                     <select
-                      value={site.orientation || 'North'}
+                      value={site.orientation || "North"}
                       onChange={(e) =>
                         setFormData((prev) => ({
                           ...prev,
-                          siteDetails: { ...prev.siteDetails, orientation: e.target.value },
+                          siteDetails: {
+                            ...prev.siteDetails,
+                            orientation: e.target.value,
+                          },
                         }))
                       }
                       className="w-full px-3 py-2 text-xs bg-white border border-slate-300 rounded-lg font-medium"
@@ -832,26 +936,41 @@ const QuoteReviseView = ({
 
               {/* Site Boundaries and Setbacks (X1-X4, S1-S4) */}
               <div className="space-y-3">
-                <div className="text-xs font-bold text-slate-800">2. Technical Boundaries & Setbacks</div>
+                <div className="text-xs font-bold text-slate-800">
+                  2. Technical Boundaries & Setbacks
+                </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs">
                   {/* Side Details (X1-X4) */}
                   <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl">
-                    <div className="font-bold text-slate-700 mb-2">Side Details</div>
-                    {(site.sideDetails || [
-                      { label: 'X1', feet: 28, inches: 6 },
-                      { label: 'X2', feet: 112, inches: 0 },
-                      { label: 'X3', feet: 28, inches: 6 },
-                      { label: 'X4', feet: 112, inches: 0 },
-                    ]).map((side, sIdx) => (
-                      <div key={sIdx} className="flex items-center space-x-1.5 mb-1.5">
-                        <span className="w-5 font-bold text-slate-600">{side.label}</span>
+                    <div className="font-bold text-slate-700 mb-2">
+                      Side Details
+                    </div>
+                    {(
+                      site.sideDetails || [
+                        { label: "X1", feet: 28, inches: 6 },
+                        { label: "X2", feet: 112, inches: 0 },
+                        { label: "X3", feet: 28, inches: 6 },
+                        { label: "X4", feet: 112, inches: 0 },
+                      ]
+                    ).map((side, sIdx) => (
+                      <div
+                        key={sIdx}
+                        className="flex items-center space-x-1.5 mb-1.5"
+                      >
+                        <span className="w-5 font-bold text-slate-600">
+                          {side.label}
+                        </span>
                         <input
                           type="number"
                           value={side.feet}
                           onChange={(e) => {
                             const updated = [...(site.sideDetails || [])];
-                            if (updated[sIdx]) updated[sIdx].feet = Number(e.target.value);
-                            setFormData({ ...formData, siteDetails: { ...site, sideDetails: updated } });
+                            if (updated[sIdx])
+                              updated[sIdx].feet = Number(e.target.value);
+                            setFormData({
+                              ...formData,
+                              siteDetails: { ...site, sideDetails: updated },
+                            });
                           }}
                           className="w-12 px-1.5 py-0.5 bg-white border border-slate-300 rounded text-center"
                         />
@@ -861,8 +980,12 @@ const QuoteReviseView = ({
                           value={side.inches}
                           onChange={(e) => {
                             const updated = [...(site.sideDetails || [])];
-                            if (updated[sIdx]) updated[sIdx].inches = Number(e.target.value);
-                            setFormData({ ...formData, siteDetails: { ...site, sideDetails: updated } });
+                            if (updated[sIdx])
+                              updated[sIdx].inches = Number(e.target.value);
+                            setFormData({
+                              ...formData,
+                              siteDetails: { ...site, sideDetails: updated },
+                            });
                           }}
                           className="w-12 px-1.5 py-0.5 bg-white border border-slate-300 rounded text-center"
                         />
@@ -873,22 +996,35 @@ const QuoteReviseView = ({
 
                   {/* Setback Details (S1-S4) */}
                   <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl">
-                    <div className="font-bold text-slate-700 mb-2">Setback Details</div>
-                    {(site.setbackDetails || [
-                      { label: 'S1', feet: 3, inches: 0 },
-                      { label: 'S2', feet: 3, inches: 0 },
-                      { label: 'S3', feet: 3, inches: 0 },
-                      { label: 'S4', feet: 3, inches: 0 },
-                    ]).map((sb, sbIdx) => (
-                      <div key={sbIdx} className="flex items-center space-x-1.5 mb-1.5">
-                        <span className="w-5 font-bold text-slate-600">{sb.label}</span>
+                    <div className="font-bold text-slate-700 mb-2">
+                      Setback Details
+                    </div>
+                    {(
+                      site.setbackDetails || [
+                        { label: "S1", feet: 3, inches: 0 },
+                        { label: "S2", feet: 3, inches: 0 },
+                        { label: "S3", feet: 3, inches: 0 },
+                        { label: "S4", feet: 3, inches: 0 },
+                      ]
+                    ).map((sb, sbIdx) => (
+                      <div
+                        key={sbIdx}
+                        className="flex items-center space-x-1.5 mb-1.5"
+                      >
+                        <span className="w-5 font-bold text-slate-600">
+                          {sb.label}
+                        </span>
                         <input
                           type="number"
                           value={sb.feet}
                           onChange={(e) => {
                             const updated = [...(site.setbackDetails || [])];
-                            if (updated[sbIdx]) updated[sbIdx].feet = Number(e.target.value);
-                            setFormData({ ...formData, siteDetails: { ...site, setbackDetails: updated } });
+                            if (updated[sbIdx])
+                              updated[sbIdx].feet = Number(e.target.value);
+                            setFormData({
+                              ...formData,
+                              siteDetails: { ...site, setbackDetails: updated },
+                            });
                           }}
                           className="w-12 px-1.5 py-0.5 bg-white border border-slate-300 rounded text-center"
                         />
@@ -898,8 +1034,12 @@ const QuoteReviseView = ({
                           value={sb.inches}
                           onChange={(e) => {
                             const updated = [...(site.setbackDetails || [])];
-                            if (updated[sbIdx]) updated[sbIdx].inches = Number(e.target.value);
-                            setFormData({ ...formData, siteDetails: { ...site, setbackDetails: updated } });
+                            if (updated[sbIdx])
+                              updated[sbIdx].inches = Number(e.target.value);
+                            setFormData({
+                              ...formData,
+                              siteDetails: { ...site, setbackDetails: updated },
+                            });
                           }}
                           className="w-12 px-1.5 py-0.5 bg-white border border-slate-300 rounded text-center"
                         />
@@ -910,20 +1050,33 @@ const QuoteReviseView = ({
 
                   {/* Road Width (R1-R2) */}
                   <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl">
-                    <div className="font-bold text-slate-700 mb-2">Road Width</div>
-                    {(site.roadWidth || [
-                      { label: 'R1', selected: true, feet: 27, inches: 0 },
-                      { label: 'R2', selected: true, feet: 30, inches: 0 },
-                    ]).map((rw, rwIdx) => (
-                      <div key={rwIdx} className="flex items-center space-x-1.5 mb-1.5">
-                        <span className="w-5 font-bold text-slate-600">{rw.label}</span>
+                    <div className="font-bold text-slate-700 mb-2">
+                      Road Width
+                    </div>
+                    {(
+                      site.roadWidth || [
+                        { label: "R1", selected: true, feet: 27, inches: 0 },
+                        { label: "R2", selected: true, feet: 30, inches: 0 },
+                      ]
+                    ).map((rw, rwIdx) => (
+                      <div
+                        key={rwIdx}
+                        className="flex items-center space-x-1.5 mb-1.5"
+                      >
+                        <span className="w-5 font-bold text-slate-600">
+                          {rw.label}
+                        </span>
                         <input
                           type="number"
                           value={rw.feet}
                           onChange={(e) => {
                             const updated = [...(site.roadWidth || [])];
-                            if (updated[rwIdx]) updated[rwIdx].feet = Number(e.target.value);
-                            setFormData({ ...formData, siteDetails: { ...site, roadWidth: updated } });
+                            if (updated[rwIdx])
+                              updated[rwIdx].feet = Number(e.target.value);
+                            setFormData({
+                              ...formData,
+                              siteDetails: { ...site, roadWidth: updated },
+                            });
                           }}
                           className="w-14 px-1.5 py-0.5 bg-white border border-slate-300 rounded text-center"
                         />
@@ -934,17 +1087,35 @@ const QuoteReviseView = ({
 
                   {/* Diagonals (Z1) */}
                   <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl">
-                    <div className="font-bold text-slate-700 mb-2">Diagonals</div>
-                    {(site.diagonalDetails || [{ label: 'Z1', feet: 134, inches: 0 }]).map((dg, dgIdx) => (
-                      <div key={dgIdx} className="flex items-center space-x-1.5 mb-1.5">
-                        <span className="w-5 font-bold text-slate-600">{dg.label}</span>
+                    <div className="font-bold text-slate-700 mb-2">
+                      Diagonals
+                    </div>
+                    {(
+                      site.diagonalDetails || [
+                        { label: "Z1", feet: 134, inches: 0 },
+                      ]
+                    ).map((dg, dgIdx) => (
+                      <div
+                        key={dgIdx}
+                        className="flex items-center space-x-1.5 mb-1.5"
+                      >
+                        <span className="w-5 font-bold text-slate-600">
+                          {dg.label}
+                        </span>
                         <input
                           type="number"
                           value={dg.feet}
                           onChange={(e) => {
                             const updated = [...(site.diagonalDetails || [])];
-                            if (updated[dgIdx]) updated[dgIdx].feet = Number(e.target.value);
-                            setFormData({ ...formData, siteDetails: { ...site, diagonalDetails: updated } });
+                            if (updated[dgIdx])
+                              updated[dgIdx].feet = Number(e.target.value);
+                            setFormData({
+                              ...formData,
+                              siteDetails: {
+                                ...site,
+                                diagonalDetails: updated,
+                              },
+                            });
                           }}
                           className="w-14 px-1.5 py-0.5 bg-white border border-slate-300 rounded text-center"
                         />
@@ -976,11 +1147,13 @@ const QuoteReviseView = ({
                         onClick={() => handleFloorSelect(btn)}
                         className={`py-2 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5 ${
                           isSelected
-                            ? 'bg-black text-white shadow-sm'
-                            : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                            ? "bg-black text-white shadow-sm"
+                            : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                         }`}
                       >
-                        {isSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                        {isSelected && (
+                          <Check className="w-3.5 h-3.5 stroke-[3]" />
+                        )}
                         <span>{btn}</span>
                       </button>
                     );
@@ -990,8 +1163,13 @@ const QuoteReviseView = ({
                 {/* Terrace Option */}
                 <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200 mt-2">
                   <div>
-                    <div className="font-bold text-xs text-slate-800">Need Terrace Consideration</div>
-                    <div className="text-[10px] text-slate-500">Includes weatherproofing & open terrace architectural layout</div>
+                    <div className="font-bold text-xs text-slate-800">
+                      Need Terrace Consideration
+                    </div>
+                    <div className="text-[10px] text-slate-500">
+                      Includes weatherproofing & open terrace architectural
+                      layout
+                    </div>
                   </div>
                   <button
                     type="button"
@@ -1006,8 +1184,8 @@ const QuoteReviseView = ({
                     }
                     className={`px-4 py-1.5 rounded-lg text-xs font-bold transition flex items-center space-x-1.5 ${
                       spatial.hasTerrace
-                        ? 'bg-black text-white'
-                        : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
+                        ? "bg-black text-white"
+                        : "bg-slate-200 text-slate-700 hover:bg-slate-300"
                     }`}
                   >
                     <Check className="w-3.5 h-3.5 stroke-[3]" />
@@ -1019,11 +1197,15 @@ const QuoteReviseView = ({
               {/* 4. Floor Spatial Requirements (STACKED FOR EVERY FLOOR: e.g. Ground Floor + First Floor!) */}
               <div className="space-y-6 pt-2">
                 <div className="text-xs font-bold text-slate-800">
-                  4. Multi-Floor Spatial & Room Requirements ({spatial.floors?.length || 1} Floor Levels Active)
+                  4. Multi-Floor Spatial & Room Requirements (
+                  {spatial.floors?.length || 1} Floor Levels Active)
                 </div>
 
                 {(spatial.floors || []).map((floor, fIdx) => (
-                  <div key={fIdx} className="bg-slate-50/70 rounded-2xl border border-slate-200 p-4 space-y-3">
+                  <div
+                    key={fIdx}
+                    className="bg-slate-50/70 rounded-2xl border border-slate-200 p-4 space-y-3"
+                  >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-2">
                         <span className="w-2.5 h-2.5 rounded-full bg-slate-900"></span>
@@ -1032,33 +1214,44 @@ const QuoteReviseView = ({
                         </h3>
                       </div>
                       <span className="text-[11px] font-mono text-slate-600 bg-white px-2 py-0.5 rounded border border-slate-200">
-                        {floor.rooms?.filter((r) => r.selected).length || 0} Rooms Selected
+                        {floor.rooms?.filter((r) => r.selected).length || 0}{" "}
+                        Rooms Selected
                       </span>
                     </div>
 
                     {/* Quick Add Custom Room for this floor */}
                     <div className="bg-white p-2.5 rounded-xl border border-slate-200 flex flex-wrap items-center gap-2 text-xs">
-                      <span className="font-bold text-slate-700">Add Room to {floor.floorName}:</span>
+                      <span className="font-bold text-slate-700">
+                        Add Room to {floor.floorName}:
+                      </span>
                       <input
                         type="text"
-                        value={customRoomInputs[fIdx]?.name || ''}
+                        value={customRoomInputs[fIdx]?.name || ""}
                         onChange={(e) =>
                           setCustomRoomInputs({
                             ...customRoomInputs,
-                            [fIdx]: { ...customRoomInputs[fIdx], name: e.target.value },
+                            [fIdx]: {
+                              ...customRoomInputs[fIdx],
+                              name: e.target.value,
+                            },
                           })
                         }
                         placeholder="e.g. Prayer Room / Library"
                         className="px-2.5 py-1 bg-slate-50 border border-slate-300 rounded text-xs w-44"
                       />
-                      <span className="font-bold text-slate-700">Area (Sq.ft):</span>
+                      <span className="font-bold text-slate-700">
+                        Area (Sq.ft):
+                      </span>
                       <input
                         type="number"
-                        value={customRoomInputs[fIdx]?.area || ''}
+                        value={customRoomInputs[fIdx]?.area || ""}
                         onChange={(e) =>
                           setCustomRoomInputs({
                             ...customRoomInputs,
-                            [fIdx]: { ...customRoomInputs[fIdx], area: e.target.value },
+                            [fIdx]: {
+                              ...customRoomInputs[fIdx],
+                              area: e.target.value,
+                            },
                           })
                         }
                         placeholder="120"
@@ -1080,28 +1273,48 @@ const QuoteReviseView = ({
                           <tr>
                             <th className="py-2 px-3">Room / Space</th>
                             <th className="py-2 px-3 text-center w-20">Nos</th>
-                            <th className="py-2 px-3 text-center w-24">Min Area</th>
-                            <th className="py-2 px-3 text-center w-28">Required</th>
-                            <th className="py-2 px-3 text-center w-24">Total</th>
-                            <th className="py-2 px-3 text-center w-36">Special Option</th>
+                            <th className="py-2 px-3 text-center w-24">
+                              Min Area
+                            </th>
+                            <th className="py-2 px-3 text-center w-28">
+                              Required
+                            </th>
+                            <th className="py-2 px-3 text-center w-24">
+                              Total
+                            </th>
+                            <th className="py-2 px-3 text-center w-36">
+                              Special Option
+                            </th>
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100 bg-white">
                           {(floor.rooms || []).map((room, rIdx) => {
-                            const isStaircase = room.areaName.toLowerCase().includes('staircase');
+                            const isStaircase = room.areaName
+                              .toLowerCase()
+                              .includes("staircase");
                             return (
-                              <tr key={rIdx} className="hover:bg-slate-50/70 transition">
+                              <tr
+                                key={rIdx}
+                                className="hover:bg-slate-50/70 transition"
+                              >
                                 <td className="py-2 px-3">
                                   <label className="flex items-center space-x-2 cursor-pointer">
                                     <input
                                       type="checkbox"
                                       checked={room.selected}
                                       onChange={(e) =>
-                                        handleRoomChange(fIdx, rIdx, 'selected', e.target.checked)
+                                        handleRoomChange(
+                                          fIdx,
+                                          rIdx,
+                                          "selected",
+                                          e.target.checked,
+                                        )
                                       }
                                       className="accent-black w-4 h-4 rounded"
                                     />
-                                    <span className="font-semibold text-slate-800">{room.areaName}</span>
+                                    <span className="font-semibold text-slate-800">
+                                      {room.areaName}
+                                    </span>
                                   </label>
                                 </td>
                                 <td className="py-2 px-3 text-center">
@@ -1110,7 +1323,12 @@ const QuoteReviseView = ({
                                     min="1"
                                     value={room.nos || 1}
                                     onChange={(e) =>
-                                      handleRoomChange(fIdx, rIdx, 'nos', e.target.value)
+                                      handleRoomChange(
+                                        fIdx,
+                                        rIdx,
+                                        "nos",
+                                        e.target.value,
+                                      )
                                     }
                                     className="w-14 px-2 py-0.5 bg-slate-50 border border-slate-200 rounded text-center text-xs"
                                   />
@@ -1121,33 +1339,51 @@ const QuoteReviseView = ({
                                 <td className="py-2 px-3 text-center">
                                   <input
                                     type="number"
-                                    value={room.requiredArea || room.minArea || 0}
+                                    value={
+                                      room.requiredArea || room.minArea || 0
+                                    }
                                     onChange={(e) =>
-                                      handleRoomChange(fIdx, rIdx, 'requiredArea', e.target.value)
+                                      handleRoomChange(
+                                        fIdx,
+                                        rIdx,
+                                        "requiredArea",
+                                        e.target.value,
+                                      )
                                     }
                                     className="w-20 px-2 py-0.5 bg-slate-50 border border-slate-200 rounded text-center text-xs font-bold"
                                   />
                                 </td>
                                 <td className="py-2 px-3 text-center font-bold font-mono text-slate-900">
-                                  {room.total || (room.nos || 1) * (room.requiredArea || room.minArea || 0)}
+                                  {room.total ||
+                                    (room.nos || 1) *
+                                      (room.requiredArea || room.minArea || 0)}
                                 </td>
                                 <td className="py-2 px-3 text-center">
                                   {isStaircase ? (
                                     <button
                                       type="button"
                                       onClick={() =>
-                                        handleRoomChange(fIdx, rIdx, 'hasOts', !room.hasOts)
+                                        handleRoomChange(
+                                          fIdx,
+                                          rIdx,
+                                          "hasOts",
+                                          !room.hasOts,
+                                        )
                                       }
                                       className={`px-2 py-0.5 rounded text-[11px] font-bold transition border ${
                                         room.hasOts
-                                          ? 'bg-blue-600 text-white border-blue-600'
-                                          : 'bg-slate-100 text-slate-600 border-slate-300'
+                                          ? "bg-blue-600 text-white border-blue-600"
+                                          : "bg-slate-100 text-slate-600 border-slate-300"
                                       }`}
                                     >
-                                      {room.hasOts ? '✓ With OTS (+₹2500)' : 'Without OTS'}
+                                      {room.hasOts
+                                        ? "✓ With OTS (+₹2500)"
+                                        : "Without OTS"}
                                     </button>
                                   ) : (
-                                    <span className="text-slate-300 text-[11px]">—</span>
+                                    <span className="text-slate-300 text-[11px]">
+                                      —
+                                    </span>
                                   )}
                                 </td>
                               </tr>
@@ -1180,13 +1416,14 @@ const QuoteReviseView = ({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div>
                   <label className="block font-bold text-slate-800 mb-1">
-                    Elevation Square Footage (Sq.Ft) <span className="text-red-500">*</span>
+                    Elevation Square Footage (Sq.Ft){" "}
+                    <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="number"
                     min="0"
                     placeholder="0"
-                    value={formData.elevationDetails?.elevationSqft || ''}
+                    value={formData.elevationDetails?.elevationSqft || ""}
                     onChange={(e) =>
                       setFormData((prev) => ({
                         ...prev,
@@ -1199,7 +1436,8 @@ const QuoteReviseView = ({
                     className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl font-bold text-slate-900 text-sm focus:ring-1 focus:ring-black"
                   />
                   <span className="text-[11px] text-slate-400 mt-1 block">
-                    Rate: ₹{formData.pricing?.elevationRate || 22}/sq.ft applied automatically from tier slab
+                    Rate: ₹{formData.pricing?.elevationRate || 22}/sq.ft applied
+                    automatically from tier slab
                   </span>
                 </div>
 
@@ -1209,7 +1447,7 @@ const QuoteReviseView = ({
                   </label>
                   <textarea
                     rows={2}
-                    value={formData.elevationDetails?.note || ''}
+                    value={formData.elevationDetails?.note || ""}
                     onChange={(e) =>
                       setFormData((prev) => ({
                         ...prev,
@@ -1245,13 +1483,14 @@ const QuoteReviseView = ({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div>
                   <label className="block font-bold text-slate-800 mb-1">
-                    Interior Square Footage (Sq.Ft) <span className="text-red-500">*</span>
+                    Interior Square Footage (Sq.Ft){" "}
+                    <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="number"
                     min="0"
                     placeholder="0"
-                    value={formData.interiorDetails?.interiorSqft || ''}
+                    value={formData.interiorDetails?.interiorSqft || ""}
                     onChange={(e) =>
                       setFormData((prev) => ({
                         ...prev,
@@ -1264,7 +1503,8 @@ const QuoteReviseView = ({
                     className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl font-bold text-slate-900 text-sm focus:ring-1 focus:ring-black"
                   />
                   <span className="text-[11px] text-slate-400 mt-1 block">
-                    Rate: ₹{formData.pricing?.interiorRate || 35}/sq.ft applied automatically from interior slab
+                    Rate: ₹{formData.pricing?.interiorRate || 35}/sq.ft applied
+                    automatically from interior slab
                   </span>
                 </div>
 
@@ -1274,7 +1514,7 @@ const QuoteReviseView = ({
                   </label>
                   <textarea
                     rows={2}
-                    value={formData.interiorDetails?.note || ''}
+                    value={formData.interiorDetails?.note || ""}
                     onChange={(e) =>
                       setFormData((prev) => ({
                         ...prev,
@@ -1297,15 +1537,21 @@ const QuoteReviseView = ({
         <div className="lg:col-span-4">
           {(() => {
             const hasValidArea =
-              (services.plan && (Number(formData.siteDetails?.builtUpArea) > 0 || Number(formData.pricing?.planSqft) > 0)) ||
-              (services.elevation && (Number(formData.elevationDetails?.elevationSqft) > 0 || Number(formData.pricing?.elevationSqft) > 0)) ||
-              (services.interior && (Number(formData.interiorDetails?.interiorSqft) > 0 || Number(formData.pricing?.interiorSqft) > 0));
+              (services.plan &&
+                (Number(formData.siteDetails?.builtUpArea) > 0 ||
+                  Number(formData.pricing?.planSqft) > 0)) ||
+              (services.elevation &&
+                (Number(formData.elevationDetails?.elevationSqft) > 0 ||
+                  Number(formData.pricing?.elevationSqft) > 0)) ||
+              (services.interior &&
+                (Number(formData.interiorDetails?.interiorSqft) > 0 ||
+                  Number(formData.pricing?.interiorSqft) > 0));
 
             const isMandatoryFilled = Boolean(
               formData?.clientName?.trim() &&
               formData?.mobileNo?.trim() &&
               formData?.projectName?.trim() &&
-              hasValidArea
+              hasValidArea,
             );
 
             return (

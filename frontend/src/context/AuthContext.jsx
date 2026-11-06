@@ -5,62 +5,47 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(
-    localStorage.getItem("zhagaram_token") || null,
-  );
+  const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isCheckedIn, setIsCheckedIn] = useState(true);
 
   useEffect(() => {
     const initAuth = async () => {
       const savedToken = localStorage.getItem("zhagaram_token");
-      const savedUser = localStorage.getItem("zhagaram_user");
 
-      // Purge legacy "arvinth" cached session if present
-      if (savedUser && savedUser.includes("karthi")) {
+      if (!savedToken) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        setToken(savedToken);
+
+        // Verify the saved token with the backend
+        const res = await authAPI.getMe();
+
+        if (!res.data?.data) {
+          throw new Error("Invalid session");
+        }
+
+        const userData = res.data.data;
+
+        setUser(userData);
+        setIsCheckedIn(userData.isCheckedIn ?? true);
+
+        localStorage.setItem("zhagaram_user", JSON.stringify(userData));
+      } catch (err) {
+        console.error("Session verification failed:", err);
+
+        // Clear invalid or expired sessions
         localStorage.removeItem("zhagaram_token");
         localStorage.removeItem("zhagaram_user");
-      }
 
-      const activeToken = localStorage.getItem("zhagaram_token");
-      const activeUser = localStorage.getItem("zhagaram_user");
-
-      if (activeToken && activeUser) {
-        try {
-          setUser(JSON.parse(activeUser));
-          setToken(activeToken);
-          const res = await authAPI.getMe();
-          if (res.data?.data) {
-            setUser(res.data.data);
-            setIsCheckedIn(res.data.data.isCheckedIn ?? true);
-            localStorage.setItem(
-              "zhagaram_user",
-              JSON.stringify(res.data.data),
-            );
-          }
-        } catch (err) {
-          console.error("Session verification error", err);
-        }
-      } else {
-        // Auto-login with default Karthi (Founder) credentials
-        try {
-          const res = await authAPI.login({
-            email: "zhagaramprojects@gmail.com",
-            password: "admin",
-          });
-          if (res.data?.data) {
-            const data = res.data.data;
-            setUser(data);
-            setToken(data.token);
-            setIsCheckedIn(data.isCheckedIn ?? true);
-            localStorage.setItem("zhagaram_token", data.token);
-            localStorage.setItem("zhagaram_user", JSON.stringify(data));
-          }
-        } catch (e) {
-          console.warn("Auto-login fallback skipped:", e.message);
-        }
+        setToken(null);
+        setUser(null);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     initAuth();
@@ -68,21 +53,28 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     const res = await authAPI.login({ email, password });
-    if (res.data && res.data.data) {
+
+    if (res.data?.data?.token) {
       const data = res.data.data;
+
       setUser(data);
       setToken(data.token);
       setIsCheckedIn(data.isCheckedIn ?? true);
+
       localStorage.setItem("zhagaram_token", data.token);
       localStorage.setItem("zhagaram_user", JSON.stringify(data));
+
       return data;
     }
+
     throw new Error("Failed to login");
   };
 
   const logout = () => {
     setUser(null);
     setToken(null);
+    setIsCheckedIn(true);
+
     localStorage.removeItem("zhagaram_token");
     localStorage.removeItem("zhagaram_user");
   };
@@ -90,6 +82,7 @@ export const AuthProvider = ({ children }) => {
   const toggleCheckIn = async () => {
     try {
       const res = await authAPI.toggleCheckIn();
+
       if (res.data?.success) {
         setIsCheckedIn(res.data.isCheckedIn);
         setUser((prev) =>
@@ -97,8 +90,7 @@ export const AuthProvider = ({ children }) => {
         );
       }
     } catch (e) {
-      console.error("Error toggling checkin", e);
-      setIsCheckedIn(!isCheckedIn);
+      console.error("Error toggling checkin:", e);
     }
   };
 
@@ -107,7 +99,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         user,
         token,
-        isAuthenticated: !!token,
+        isAuthenticated: !!user && !!token,
         loading,
         isCheckedIn,
         login,

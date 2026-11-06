@@ -41,7 +41,7 @@ const getFloorNamesForType = (floorType) => {
 const getDefaultRoomsForFloor = (floorName) => [
   {
     areaName: "Parking",
-    selected: true,
+    selected: false,
     nos: 1,
     minArea: 40,
     requiredArea: 40,
@@ -49,7 +49,7 @@ const getDefaultRoomsForFloor = (floorName) => [
   },
   {
     areaName: "Sitout",
-    selected: true,
+    selected: false,
     nos: 1,
     minArea: 25,
     requiredArea: 25,
@@ -57,7 +57,7 @@ const getDefaultRoomsForFloor = (floorName) => [
   },
   {
     areaName: "Foyer",
-    selected: true,
+    selected: false,
     nos: 1,
     minArea: 25,
     requiredArea: 25,
@@ -65,7 +65,7 @@ const getDefaultRoomsForFloor = (floorName) => [
   },
   {
     areaName: "Living Hall",
-    selected: true,
+    selected: false,
     nos: 1,
     minArea: 80,
     requiredArea: 80,
@@ -73,7 +73,7 @@ const getDefaultRoomsForFloor = (floorName) => [
   },
   {
     areaName: "Dining Hall",
-    selected: true,
+    selected: false,
     nos: 1,
     minArea: 80,
     requiredArea: 80,
@@ -81,7 +81,7 @@ const getDefaultRoomsForFloor = (floorName) => [
   },
   {
     areaName: "Kitchen",
-    selected: true,
+    selected: false,
     nos: 1,
     minArea: 60,
     requiredArea: 60,
@@ -89,7 +89,7 @@ const getDefaultRoomsForFloor = (floorName) => [
   },
   {
     areaName: "Kitchen Store",
-    selected: true,
+    selected: false,
     nos: 1,
     minArea: 25,
     requiredArea: 25,
@@ -97,7 +97,7 @@ const getDefaultRoomsForFloor = (floorName) => [
   },
   {
     areaName: "Utility",
-    selected: true,
+    selected: false,
     nos: 1,
     minArea: 25,
     requiredArea: 25,
@@ -105,7 +105,7 @@ const getDefaultRoomsForFloor = (floorName) => [
   },
   {
     areaName: "Pooja",
-    selected: true,
+    selected: false,
     nos: 1,
     minArea: 20,
     requiredArea: 20,
@@ -113,7 +113,7 @@ const getDefaultRoomsForFloor = (floorName) => [
   },
   {
     areaName: "Courtyard",
-    selected: true,
+    selected: false,
     nos: 1,
     minArea: 30,
     requiredArea: 30,
@@ -121,7 +121,7 @@ const getDefaultRoomsForFloor = (floorName) => [
   },
   {
     areaName: "Master Bedroom",
-    selected: true,
+    selected: false,
     nos: 1,
     minArea: 160,
     requiredArea: 160,
@@ -129,7 +129,7 @@ const getDefaultRoomsForFloor = (floorName) => [
   },
   {
     areaName: "Guest Bedroom",
-    selected: true,
+    selected: false,
     nos: 1,
     minArea: 70,
     requiredArea: 70,
@@ -137,7 +137,7 @@ const getDefaultRoomsForFloor = (floorName) => [
   },
   {
     areaName: "Family Room",
-    selected: true,
+    selected: false,
     nos: 1,
     minArea: 100,
     requiredArea: 100,
@@ -145,7 +145,7 @@ const getDefaultRoomsForFloor = (floorName) => [
   },
   {
     areaName: "Gym",
-    selected: true,
+    selected: false,
     nos: 1,
     minArea: 100,
     requiredArea: 100,
@@ -153,7 +153,7 @@ const getDefaultRoomsForFloor = (floorName) => [
   },
   {
     areaName: "Yoga Room",
-    selected: true,
+    selected: false,
     nos: 1,
     minArea: 100,
     requiredArea: 100,
@@ -161,7 +161,7 @@ const getDefaultRoomsForFloor = (floorName) => [
   },
   {
     areaName: "Store Room",
-    selected: true,
+    selected: false,
     nos: 1,
     minArea: 40,
     requiredArea: 40,
@@ -169,7 +169,7 @@ const getDefaultRoomsForFloor = (floorName) => [
   },
   {
     areaName: "Home Theatre",
-    selected: true,
+    selected: false,
     nos: 1,
     minArea: 110,
     requiredArea: 110,
@@ -177,7 +177,7 @@ const getDefaultRoomsForFloor = (floorName) => [
   },
   {
     areaName: "Staircase",
-    selected: true,
+    selected: false,
     nos: 1,
     minArea: 80,
     requiredArea: 80,
@@ -186,7 +186,7 @@ const getDefaultRoomsForFloor = (floorName) => [
   },
   {
     areaName: "Lift",
-    selected: true,
+    selected: false,
     nos: 1,
     minArea: 25,
     requiredArea: 25,
