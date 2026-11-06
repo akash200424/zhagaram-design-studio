@@ -238,6 +238,12 @@ const QuoteReviseView = ({
   useEffect(() => {
     if (enquiry) {
       const copy = JSON.parse(JSON.stringify(enquiry));
+      const today = new Date();
+      today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+
+      copy.enquiryDate = copy.enquiryDate
+        ? new Date(copy.enquiryDate).toISOString().slice(0, 10)
+        : today.toISOString().slice(0, 10);
       if (!copy.services) {
         copy.services = {
           plan: true,
@@ -704,6 +710,23 @@ const QuoteReviseView = ({
                     setFormData({ ...formData, projectName: e.target.value })
                   }
                   placeholder="e.g. Venkat residence"
+                  className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:outline-none focus:ring-1 focus:ring-black"
+                />
+              </div>
+              <div>
+                <label className="block font-bold text-slate-800 mb-1">
+                  Enquiry Date
+                </label>
+
+                <input
+                  type="date"
+                  value={formData.enquiryDate || ""}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      enquiryDate: e.target.value,
+                    }))
+                  }
                   className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:outline-none focus:ring-1 focus:ring-black"
                 />
               </div>
